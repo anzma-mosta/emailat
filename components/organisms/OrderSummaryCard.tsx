@@ -3,7 +3,7 @@
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Card } from '@/components/atoms/Card';
 
-export function OrderSummaryCard() {
+export function OrderSummaryCard({ hideButton = false }: { hideButton?: boolean }) {
   const { t } = useLocale();
   return (
     <Card>

@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Card } from '@/components/atoms/Card';
 import { Icon } from '@/components/atoms/Icon';
@@ -25,9 +25,10 @@ type Country = {
   dialCode: string | null;
 };
 
-export function BillingForm() {
+export function BillingForm({ hideSubmit = false }: { hideSubmit?: boolean }) {
   const router = useRouter();
   const { t, locale } = useLocale();
+  const pathname = usePathname();
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(true);
   const [countryCode, setCountryCode] = useState('EG');
@@ -179,10 +180,12 @@ export function BillingForm() {
           </FormField>
         </div>
 
-        <Button type="submit" className="w-full mt-2">
-          <span>{t('billing.continue')}</span>
-          <Icon name="arrow_forward" className="text-lg ml-2" />
-        </Button>
+        {!hideSubmit && (
+          <Button type="submit" className="w-full mt-2">
+            <span>{t('billing.continue')}</span>
+            <Icon name="arrow_forward" className="text-lg ml-2" />
+          </Button>
+        )}
       </form>
     </Card>
   );

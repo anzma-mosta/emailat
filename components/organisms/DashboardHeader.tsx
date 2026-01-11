@@ -19,6 +19,7 @@ export function DashboardHeader() {
     if (pathname === '/dashboard/emails') return t('dashboard.emails');
     if (pathname === '/dashboard/billing') return t('dashboard.billing');
     if (pathname === '/dashboard/upgrade') return t('header.pricing');
+    if (pathname?.startsWith('/dashboard/upgrade')) return t('plans.upgrade') || (locale === 'ar' ? 'ترقية' : 'Upgrade');
     if (pathname === '/dashboard/support') return t('dashboard.support');
     return t('dashboard.title');
   };

@@ -116,7 +116,7 @@ export default function UpgradePage() {
               </div>
 
               <Button
-                variant={plan.popular ? 'default' : 'outline'}
+                variant={plan.popular ? 'primary' : 'outline'}
                 className="w-full py-6 text-base font-bold"
                 onClick={() => handleSelectPlan(plan.id)}
               >

@@ -90,7 +90,7 @@ function SubscriptionsTableImpl({ subscriptions, onAddSubscription, onRemoveSubs
           <h3 className="text-lg font-bold text-[#0c121d] dark:text-white">{t('billing.subscriptions')}</h3>
         </div>
         <Link href="/dashboard/upgrade">
-          <Button size="sm" variant="default" className="flex items-center gap-2">
+          <Button size="sm" variant="primary" className="flex items-center gap-2">
             <Icon name="auto_awesome" className="text-sm" />
             {t('plans.upgrade') || (locale === 'ar' ? 'ترقية الخطة' : 'Upgrade Plan')}
           </Button>
