@@ -59,7 +59,7 @@ export default function Sidebar() {
             
           </div>
           <div className="flex items-center gap-2">
-            <ThemeToggle />
+         
             <button
               onClick={toggleLanguage}
       aria-label="Toggle language"
