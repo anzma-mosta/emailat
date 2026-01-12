@@ -4,6 +4,7 @@ import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
 import { Button } from '@/components/atoms/Button';
 import LanguageToggleButton from '@/components/atoms/LanguageToggleButton';
+import { ThemeToggle } from '@/components/atoms/ThemeToggle';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 
@@ -24,21 +25,21 @@ export function DashboardHeader() {
     return t('dashboard.title');
   };
 
-  const handleLogout = () => {
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('loggedIn');
-      localStorage.removeItem('userDetails');
-    }
-    router.push('/');
-  };
+  // const handleLogout = () => {
+  //   if (typeof window !== 'undefined') {
+  //     localStorage.removeItem('loggedIn');
+  //     localStorage.removeItem('userDetails');
+  //   }
+  //   router.push('/');
+  // };
 
  const toggleNotifications = useCallback(() => {
     setShowNotifications((v) => !v);
   }, []);
 
   return (
-    <header className="h-16 border-b border-[#e6ebf4] dark:border-gray-800 bg-white dark:bg-[#1a202c] px-6 flex items-center justify-between sticky top-0 z-30 transition-colors duration-200">
-     <div className="flex items-center gap-6">
+    <header className="h-16 border-b border-[#e6ebf4] dark:border-gray-800 bg-white dark:bg-[#1a202c] px-6 flex items-center justify-end sticky top-0 z-30 transition-colors duration-200">
+     <div className="flex items-center  gap-6">
           <div className="hidden max-w-md items-center rounded-lg bg-background-light dark:bg-background-dark px-3 py-2 sm:flex border border-transparent focus-within:border-primary/50 transition-colors">
             <Icon name="search" className="text-[#4563a1] dark:text-gray-400" />
             <input
@@ -48,6 +49,8 @@ export function DashboardHeader() {
             />
           </div>
           <div className="flex items-center gap-4">
+            {/* to show theme toggle icon & btn */}
+            {/* <ThemeToggle /> */}
             <button
               onClick={toggleNotifications}
               className="relative rounded-full p-2 text-[#4563a1] hover:bg-background-light dark:text-gray-400 dark:hover:bg-gray-800 transition-colors"
@@ -58,7 +61,7 @@ export function DashboardHeader() {
            
           </div>
         </div>
-      <div className="flex items-center gap-3">
+       <div className="flex items-center gap-3">    
         {/* <div className="relative">
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
@@ -100,18 +103,15 @@ export function DashboardHeader() {
             </div>
           )}
         </div> */}
+{/* the divided line between content */}
 
-        <div className="h-6 w-[1px] bg-[#e6ebf4] dark:border-gray-800 mx-1"></div>
+        {/* <div className="h-6 w-[1px] bg-[#e6ebf4] dark:border-gray-800 mx-1"></div>
 
-        <div className="flex items-center gap-2">
-          <LanguageToggleButton locale={locale} setLocale={setLocale} />
-        </div>
+      //  here is any thing to put between the line
 
-        <div className="h-6 w-[1px] bg-[#e6ebf4] dark:border-gray-800 mx-1"></div>
+        <div className="h-6 w-[1px] bg-[#e6ebf4] dark:border-gray-800 mx-1"></div> */}
 
-        <Button variant="ghost" size="sm" onClick={handleLogout} className="text-[#4563a1] dark:text-gray-400 hover:text-red-500">
-          <Icon name="logout" className="text-[20px]" />
-        </Button>
+        {/* <LanguageToggleButton locale={locale} setLocale={setLocale} /> */}
       </div>
     </header>
   );

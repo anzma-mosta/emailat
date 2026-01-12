@@ -4,8 +4,14 @@ import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
 import { Button } from '@/components/atoms/Button';
 
+import { useState } from 'react';
+import { Modal } from '@/components/atoms/Modal';
+import { FormField } from '@/components/molecules/FormField';
+import { Input } from '@/components/atoms/Input';
+
 export default function BillingPage() {
   const { t, locale } = useLocale();
+  const [showAddMethod, setShowAddMethod] = useState(false);
 
   const invoices = [
     { id: '#4902', date: 'Oct 22, 2025', dueDate: 'Oct 29, 2025', amount: '$29.00', status: t('billing.status.paid') },
@@ -177,7 +183,7 @@ export default function BillingPage() {
                     </div>
                   </div>
                 ))}
-                <Button className="w-full" size="sm">
+                <Button className="w-full" size="sm" onClick={() => setShowAddMethod(true)}>
                   <Icon name="add_circle" className="mr-2" />
                   {t('billing.addMethod')}
                 </Button>
@@ -186,6 +192,39 @@ export default function BillingPage() {
           </aside>
         </div>
       </div>
+
+      <Modal
+        isOpen={showAddMethod}
+        onClose={() => setShowAddMethod(false)}
+        title={t('billing.addMethod')}
+      >
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
+            <FormField label={locale === 'ar' ? 'رقم البطاقة' : 'Card Number'}>
+              <Input placeholder="0000 0000 0000 0000" />
+            </FormField>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField label={locale === 'ar' ? 'تاريخ الانتهاء' : 'Expiry Date'}>
+                <Input placeholder="MM/YY" />
+              </FormField>
+              <FormField label={locale === 'ar' ? 'رمز التحقق (CVV)' : 'CVV'}>
+                <Input placeholder="123" />
+              </FormField>
+            </div>
+            <FormField label={locale === 'ar' ? 'اسم حامل البطاقة' : 'Cardholder Name'}>
+              <Input placeholder="John Doe" />
+            </FormField>
+          </div>
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="outline" onClick={() => setShowAddMethod(false)}>
+              {locale === 'ar' ? 'إلغاء' : 'Cancel'}
+            </Button>
+            <Button onClick={() => setShowAddMethod(false)}>
+              {locale === 'ar' ? 'إضافة بطاقة' : 'Add Card'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

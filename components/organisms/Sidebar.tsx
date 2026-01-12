@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
 import { NavItem } from '@/components/molecules/NavItem';
+import { ThemeToggle } from '@/components/atoms/ThemeToggle';
 
 const navItems = [
   { href: '/dashboard', labelKey: 'dashboard.title', icon: 'dashboard' },
@@ -58,8 +59,9 @@ export default function Sidebar() {
             
           </div>
           <div className="flex items-center gap-2">
-           <button
-      onClick={toggleLanguage}
+            <ThemeToggle />
+            <button
+              onClick={toggleLanguage}
       aria-label="Toggle language"
       title="Toggle language"
       className="relative flex items-center justify-between w-20 h-8 p-1 bg-[#e6ebf4] dark:bg-gray-700 rounded-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary transition-colors overflow-hidden"

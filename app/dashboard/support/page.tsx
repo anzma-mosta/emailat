@@ -4,8 +4,23 @@ import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
 import { Button } from '@/components/atoms/Button';
 
+import { useState } from 'react';
+import { Modal } from '@/components/atoms/Modal';
+import { FormField } from '@/components/molecules/FormField';
+import { Input } from '@/components/atoms/Input';
+
 export default function SupportPage() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const [showAddTicket, setShowAddTicket] = useState(false);
+  const [ticketSubject, setTicketSubject] = useState('');
+  const [ticketDesc, setTicketDesc] = useState('');
+
+  const openTicket = () => {
+    // Logic for opening ticket
+    setShowAddTicket(false);
+    setTicketSubject('');
+    setTicketDesc('');
+  };
   return (
     <div className="p-6 lg:p-10">
       <div className="mx-auto max-w-[1200px] flex flex-col gap-8">
@@ -13,7 +28,7 @@ export default function SupportPage() {
           <div>
             <p className="text-sm text-[#4563a1] dark:text-gray-400">Contact support for assistance.</p>
           </div>
-          <Button size="sm">
+          <Button size="sm" onClick={() => setShowAddTicket(true)}>
             <Icon name="support_agent" className="mr-2" />
             {t('support.openTicket')}
           </Button>
@@ -59,6 +74,38 @@ export default function SupportPage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={showAddTicket}
+        onClose={() => setShowAddTicket(false)}
+        title={t('support.openTicket')}
+      >
+        <div className="flex flex-col gap-4">
+          <FormField label={locale === 'ar' ? 'الموضوع' : 'Subject'}>
+            <Input
+              value={ticketSubject}
+              onChange={(e) => setTicketSubject(e.target.value)}
+              placeholder={locale === 'ar' ? 'أدخل موضوع التذكرة' : 'Enter ticket subject'}
+            />
+          </FormField>
+          <FormField label={locale === 'ar' ? 'الوصف' : 'Description'}>
+            <textarea
+              value={ticketDesc}
+              onChange={(e) => setTicketDesc(e.target.value)}
+              className="w-full h-32 p-3 rounded-lg border border-[#e6ebf4] dark:border-gray-800 bg-white dark:bg-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+              placeholder={locale === 'ar' ? 'اشرح المشكلة بالتفصيل' : 'Describe your issue in detail'}
+            />
+          </FormField>
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="outline" onClick={() => setShowAddTicket(false)}>
+              {locale === 'ar' ? 'إلغاء' : 'Cancel'}
+            </Button>
+            <Button onClick={openTicket}>
+              {locale === 'ar' ? 'فتح التذكرة' : 'Open Ticket'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

@@ -6,7 +6,8 @@ import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
 import { Button } from '@/components/atoms/Button';
 import LanguageToggleButton from '@/components/atoms/LanguageToggleButton';
-
+import { Logo } from '@/components/atoms/Logo';
+import { ThemeToggle } from '@/components/atoms/ThemeToggle';
 
 interface HeaderProps {
   showAuth?: boolean;
@@ -30,30 +31,25 @@ export default function Header({ showAuth = true }: HeaderProps) {
     <header className="sticky top-0 z-50 w-full border-b border-[#e6ebf4] dark:border-gray-800 bg-white/80 dark:bg-[#1a2332]/80 backdrop-blur-md">
       <div className="px-4 md:px-10 py-3 flex items-center justify-between mx-auto max-w-7xl">
         <Link href="/" className="flex items-center gap-4">
-          <div className="text-primary">
-            <Icon name="mail" className="text-3xl" />
-          </div>
-          <h2 className="text-lg font-bold leading-tight tracking-tight text-[#0c121d] dark:text-white">
-            Emailat
-          </h2>
+          <Logo />
         </Link>
         {showAuth && (
           <div className="hidden md:flex items-center gap-8">
             <nav className="flex gap-6">
               <Link
-                href="#"
+                href="/features"
                 className="text-sm font-medium hover:text-primary transition-colors text-[#0c121d] dark:text-white"
               >
                 {t('header.features')}
               </Link>
               <Link
-                href="#"
+                href="/pricing"
                 className="text-sm font-medium hover:text-primary transition-colors text-[#0c121d] dark:text-white"
               >
                 {t('header.pricing')}
               </Link>
               <Link
-                href="#"
+                href="/support"
                 className="text-sm font-medium hover:text-primary transition-colors text-[#0c121d] dark:text-white"
               >
                 {t('header.support')}
@@ -68,7 +64,7 @@ export default function Header({ showAuth = true }: HeaderProps) {
                   >
                     {t('header.login')}
                   </Link>
-                  <Link href="/subscribe/plans" className="">
+                  <Link href="/pricing" className="">
                     <Button size="sm">{t('header.getStarted')}</Button>
                   </Link>
                 </>
@@ -78,7 +74,8 @@ export default function Header({ showAuth = true }: HeaderProps) {
                 </Button>
               )}
               <div className="flex items-center gap-2">
-              <LanguageToggleButton locale={locale} setLocale={setLocale} />
+                <ThemeToggle />
+                <LanguageToggleButton locale={locale} setLocale={setLocale} />
               </div>
             </div>
           </div>

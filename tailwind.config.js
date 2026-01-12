@@ -25,7 +25,8 @@ module.exports = {
         "text-secondary-dark": "#a0aec0",
       },
       fontFamily: {
-        display: ["Inter", "sans-serif"],
+        display: ["Cairo", "sans-serif"],
+        sans: ["Cairo", "sans-serif"],
       },
       borderRadius: {
         DEFAULT: "0.25rem",

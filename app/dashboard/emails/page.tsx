@@ -6,6 +6,7 @@ import { Button } from '@/components/atoms/Button';
 import { Input } from '@/components/atoms/Input';
 import { Select } from '@/components/atoms/Select';
 import { useEffect, useMemo, useState } from 'react';
+import { Modal } from '@/components/atoms/Modal';
 
 export default function EmailsPage() {
   const { t, locale } = useLocale();
@@ -66,33 +67,6 @@ export default function EmailsPage() {
             <Icon name="mail" className="text-primary" />
             <h3 className="text-lg font-bold text-[#0c121d] dark:text-white">{t('dashboard.mailboxes')}</h3>
           </div>
-          {showAdd && (
-            <div className="px-6 py-4 border-b border-[#e6ebf4] dark:border-gray-800">
-              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                <Input
-                  value={localPart}
-                  onChange={(e) => setLocalPart(e.target.value)}
-                  placeholder={locale === 'ar' ? 'اسم المستخدم' : 'Username'}
-                />
-                <Select value={domain} onChange={(e) => setDomain(e.target.value)}>
-                  {domains.map((d, i) => (
-                    <option key={i} value={d}>{d}</option>
-                  ))}
-                </Select>
-                <Select value={storage} onChange={(e) => setStorage(e.target.value)}>
-                  <option>2GB</option>
-                  <option>5GB</option>
-                  <option>10GB</option>
-                  <option>20GB</option>
-                </Select>
-                <div className="flex items-center justify-end gap-2">
-                  <Button size="sm" variant="outline" onClick={() => setShowAdd(false)}>{locale === 'ar' ? 'إلغاء' : 'Cancel'}</Button>
-                  <Button size="sm" onClick={addMailbox}>{locale === 'ar' ? 'حفظ' : 'Save'}</Button>
-                </div>
-              </div>
-              <p className="text-xs text-[#4563a1] dark:text-gray-400 mt-2">{t('domain.perAccountSuffix')}</p>
-            </div>
-          )}
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
@@ -145,6 +119,61 @@ export default function EmailsPage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={showAdd}
+        onClose={() => setShowAdd(false)}
+        title={t('dashboard.addMailbox')}
+      >
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 gap-4">
+            <div className="flex flex-col gap-1">
+              <label className="text-sm font-medium text-[#0c121d] dark:text-white">
+                {locale === 'ar' ? 'اسم المستخدم' : 'Username'}
+              </label>
+              <div className="flex items-center gap-2">
+                <Input
+                  value={localPart}
+                  onChange={(e) => setLocalPart(e.target.value)}
+                  placeholder="john.doe"
+                  className="flex-1"
+                />
+                <span className="text-[#4563a1] dark:text-gray-400">@</span>
+                <Select value={domain} onChange={(e) => setDomain(e.target.value)} className="flex-1">
+                  {domains.map((d, i) => (
+                    <option key={i} value={d}>{d}</option>
+                  ))}
+                </Select>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label className="text-sm font-medium text-[#0c121d] dark:text-white">
+                {t('dashboard.storage')}
+              </label>
+              <Select value={storage} onChange={(e) => setStorage(e.target.value)}>
+                <option>2GB</option>
+                <option>5GB</option>
+                <option>10GB</option>
+                <option>20GB</option>
+              </Select>
+            </div>
+          </div>
+
+          <p className="text-xs text-[#4563a1] dark:text-gray-400">
+            {t('domain.perAccountSuffix')}
+          </p>
+
+          <div className="flex justify-end gap-2 pt-2">
+            <Button variant="outline" onClick={() => setShowAdd(false)}>
+              {locale === 'ar' ? 'إلغاء' : 'Cancel'}
+            </Button>
+            <Button onClick={addMailbox}>
+              {locale === 'ar' ? 'حفظ' : 'Save'}
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

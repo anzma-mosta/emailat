@@ -13,7 +13,7 @@ const base = 'inline-flex items-center justify-center rounded-lg font-bold trans
 const variants: Record<Variant, string> = {
   primary: 'bg-primary hover:bg-blue-800 text-white',
   outline: 'border border-[#e6ebf4] dark:border-gray-700 text-[#0c121d] dark:text-white hover:bg-background-light dark:hover:bg-gray-800',
-  ghost: 'text-[#0c121d]  hover:bg-background-light dark:hover:bg-gray-800',
+  ghost: 'text-[#0c121d] dark:text-white hover:bg-background-light dark:hover:bg-gray-800',
 };
 const sizes: Record<Size, string> = {
   sm: 'h-9 px-4 text-sm',

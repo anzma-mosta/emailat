@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
+import { Logo } from '@/components/atoms/Logo';
 
 export default function Footer() {
   const { t } = useLocale();
@@ -12,10 +13,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">
-              <div className="text-primary">
-                <Icon name="mail" className="text-2xl" />
-              </div>
-              <span className="text-lg font-bold text-[#0c121d] dark:text-white">Emailat</span>
+              <Logo />
             </div>
             <p className="text-sm text-[#4563a1] dark:text-gray-400">
               {t('home.subtitle')}
@@ -61,8 +59,13 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/subscribe/plans" className="text-sm text-[#0c121d] dark:text-white hover:text-primary dark:hover:text-blue-400 transition-colors">
+                <Link href="/pricing" className="text-sm text-[#0c121d] dark:text-white hover:text-primary dark:hover:text-blue-400 transition-colors">
                   {t('header.pricing')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/support" className="text-sm text-[#0c121d] dark:text-white hover:text-primary dark:hover:text-blue-400 transition-colors">
+                  {t('header.support')}
                 </Link>
               </li>
               <li>

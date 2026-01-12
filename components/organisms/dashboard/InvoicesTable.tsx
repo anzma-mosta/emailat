@@ -26,7 +26,7 @@ function InvoicesTableImpl({ invoices, onAddInvoice }: Props) {
   return (
     <div className="rounded-xl border border-[#e6ebf4] dark:border-gray-800 bg-white dark:bg-[#1a202c] shadow-sm overflow-hidden">
       <div className="px-6 py-5 border-b border-[#e6ebf4] dark:border-gray-800 flex items-center gap-2">
-        <Icon name="file_invoice" className="text-primary" />
+        {/* <Icon name="file_invoice" className="text-primary" /> */}
         <h3 className="text-lg font-bold text-[#0c121d] dark:text-white">{t('billing.paymentHistory')}</h3>
       </div>
       {showAdd && (

@@ -1,0 +1,5 @@
+<svg width="150" height="40" viewBox="0 0 150 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="150" height="40" rx="8" fill="transparent"/>
+  <path d="M20 10H35V15H25V20H33V25H25V30H35V35H20V10Z" fill="#93c5fd"/>
+  <text x="45" y="28" fill="#ffffff" font-family="Cairo" font-weight="900" font-size="24">Emailat</text>
+</svg>

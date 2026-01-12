@@ -26,7 +26,7 @@ export default function HomePage() {
                     {t('home.subtitle')}
                   </p>
                   <div className="mt-2 flex flex-wrap items-center gap-3">
-                    <Link href="/subscribe/plans">
+                    <Link href="/pricing">
                       <Button size="md">
                         {t('header.getStarted')}
                       </Button>
