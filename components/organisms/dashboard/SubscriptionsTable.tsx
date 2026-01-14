@@ -204,7 +204,7 @@ function SubscriptionsTableImpl({ subscriptions, onAddSubscription, onRemoveSubs
                   {t('domain.step.plan')}
                 </p>
                 {editIndex === i ? (
-                  <Input size="sm" value={editPlan} onChange={(e) => setEditPlan(e.target.value)} />
+                  <Input className="h-10 text-sm" value={editPlan} onChange={(e) => setEditPlan(e.target.value)} />
                 ) : (
                   <p className="text-sm font-bold text-[#0c121d] dark:text-white">{s.plan}</p>
                 )}
@@ -214,7 +214,7 @@ function SubscriptionsTableImpl({ subscriptions, onAddSubscription, onRemoveSubs
                   {t('order.billingPeriod')}
                 </p>
                 {editIndex === i ? (
-                  <Select size="sm" value={editPeriod} onChange={(e) => setEditPeriod(e.target.value as 'monthly' | 'yearly')}>
+                  <Select className="h-10 text-sm" value={editPeriod} onChange={(e) => setEditPeriod(e.target.value as 'monthly' | 'yearly')}>
                     <option value="monthly">{t('plans.toggle.monthly')}</option>
                     <option value="yearly">{t('plans.toggle.yearly')}</option>
                   </Select>
