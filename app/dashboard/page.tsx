@@ -232,38 +232,42 @@ export default function DashboardPage() {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="flex flex-col gap-4 rounded-xl border border-[#e6ebf4] dark:border-gray-800 bg-white dark:bg-[#1a202c] p-6 shadow-sm"
+                className="flex flex-col gap-4 rounded-xl border border-[#e6ebf4] dark:border-gray-800 bg-white dark:bg-[#1a202c] p-5 md:p-6 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-[#4563a1] dark:text-gray-400">
-                    {stat.label}
-                  </p>
-                  <Icon name={stat.icon} className="text-primary" />
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/10 dark:bg-primary/20">
+                      <Icon name={stat.icon} className="text-primary" />
+                    </div>
+                    <p className="text-sm font-medium text-[#4563a1] dark:text-gray-400">
+                      {stat.label}
+                    </p>
+                  </div>
                 </div>
                 <div className={stat.percentage ? 'flex flex-col justify-end h-full' : ''}>
                   <div className="flex items-end justify-between mb-2">
-                    <p className="text-3xl font-bold text-[#0c121d] dark:text-white">
+                    <p className="text-2xl md:text-3xl font-bold text-[#0c121d] dark:text-white">
                       {stat.value}
                       {stat.total && (
-                        <span className="text-lg text-[#4563a1] font-normal"> / {stat.total}</span>
+                        <span className="text-base md:text-lg text-[#4563a1] font-normal"> / {stat.total}</span>
                       )}
                     </p>
                     {stat.percentage && (
-                      <span className="text-xs font-medium text-[#4563a1] dark:text-gray-400">
+                      <span className="text-xs font-bold text-primary">
                         {stat.percentage}%
                       </span>
                     )}
                   </div>
                   {stat.percentage && (
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-background-light dark:bg-gray-800">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-background-light dark:bg-gray-800">
                       <div
-                        className="h-full rounded-full bg-primary transition-all duration-500"
+                        className="h-full rounded-full bg-primary transition-all duration-1000 ease-out"
                         style={{ width: `${stat.percentage}%` }}
                       />
                     </div>
                   )}
-                  <p className={`mt-2 text-xs ${stat.color || 'text-[#4563a1] dark:text-gray-400'} flex items-center gap-1`}>
-                    {stat.color && <Icon name="check_circle" className="text-[16px]" />}
+                  <p className={`mt-2 text-xs ${stat.color || 'text-[#4563a1] dark:text-gray-400'} flex items-center gap-1.5`}>
+                    {stat.color && <Icon name="check_circle" className="text-[14px]" />}
                     {stat.subtitle}
                   </p>
                 </div>

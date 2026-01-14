@@ -65,15 +65,15 @@ function InvoicesTableImpl({ invoices, onAddInvoice }: Props) {
           </div>
         </div>
       )}
-      <div className="overflow-x-auto">
+      <div className="hidden md:block overflow-x-auto">
         <table className="w-full text-left text-sm">
           <thead>
             <tr className="border-b border-[#e6ebf4] dark:border-gray-800 text-[#4563a1] dark:text-gray-400">
-              <th className="px-6 py-4 font-medium whitespace-nowrap">{t('billing.columns.invoice')}</th>
-              <th className="px-6 py-4 font-medium whitespace-nowrap">{t('billing.columns.date')}</th>
-              <th className="px-6 py-4 font-medium whitespace-nowrap">{t('billing.columns.amount')}</th>
-              <th className="px-6 py-4 font-medium whitespace-nowrap">{t('billing.columns.status')}</th>
-              <th className="px-6 py-4 font-medium whitespace-nowrap">{t('billing.columns.actions')}</th>
+              <th className={`px-6 py-4 font-medium whitespace-nowrap ${locale === 'ar' ? 'text-right' : 'text-left'}`}>{t('billing.columns.invoice')}</th>
+              <th className={`px-6 py-4 font-medium whitespace-nowrap ${locale === 'ar' ? 'text-right' : 'text-left'}`}>{t('billing.columns.date')}</th>
+              <th className={`px-6 py-4 font-medium whitespace-nowrap ${locale === 'ar' ? 'text-right' : 'text-left'}`}>{t('billing.columns.amount')}</th>
+              <th className={`px-6 py-4 font-medium whitespace-nowrap ${locale === 'ar' ? 'text-right' : 'text-left'}`}>{t('billing.columns.status')}</th>
+              <th className={`px-6 py-4 font-medium whitespace-nowrap ${locale === 'ar' ? 'text-right' : 'text-left'}`}>{t('billing.columns.actions')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-[#e6ebf4] dark:divide-gray-800 text-[#0c121d] dark:text-white">
@@ -104,6 +104,34 @@ function InvoicesTableImpl({ invoices, onAddInvoice }: Props) {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden divide-y divide-[#e6ebf4] dark:divide-gray-800">
+        {invoices.map((inv, i) => (
+          <div key={i} className="p-4 space-y-3 hover:bg-background-light/50 dark:hover:bg-gray-800/20 transition-colors">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium text-[#4563a1] dark:text-gray-400">{inv.id}</span>
+              <span className="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/20 dark:text-green-400">
+                {inv.status}
+              </span>
+            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-bold text-[#0c121d] dark:text-white">{inv.amount}</p>
+                <p className="text-xs text-[#4563a1] dark:text-gray-400">{inv.date}</p>
+              </div>
+              <Button size="sm" variant="outline">
+                <Icon name="download" />
+              </Button>
+            </div>
+          </div>
+        ))}
+        {invoices.length === 0 && (
+          <div className="p-8 text-center text-[#4563a1] dark:text-gray-500 text-sm">
+            {locale === 'ar' ? 'لا توجد فواتير بعد.' : 'No invoices yet.'}
+          </div>
+        )}
       </div>
       <div className="px-6 py-4">
         <Button size="sm" className="w-full" onClick={() => setShowAdd((v) => !v)}>

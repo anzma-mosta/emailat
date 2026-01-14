@@ -87,10 +87,10 @@ function PaymentMethodsCardImpl({ methods, onAddMethod, onRemoveMethod, onSetDef
           </div>
         )}
         {methods.map((m, i) => (
-          <div key={i} className="flex items-center justify-between rounded-lg border border-[#e6ebf4] dark:border-gray-800 p-3">
+          <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between rounded-lg border border-[#e6ebf4] dark:border-gray-800 p-3 gap-4">
             <div className="flex items-center gap-3">
               <Icon name={m.type === 'card' ? 'credit_card' : m.type === 'bank' ? 'account_balance' : 'account_balance_wallet'} className="text-[#4563a1] dark:text-gray-400" />
-              <div>
+              <div className="flex-1 min-w-0">
                 {editIndex === i ? (
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <Select value={editType} onChange={(e) => setEditType(e.target.value as Method['type'])}>
@@ -106,7 +106,7 @@ function PaymentMethodsCardImpl({ methods, onAddMethod, onRemoveMethod, onSetDef
                     </div>
                   </div>
                 ) : (
-                  <p className="text-sm font-semibold text-[#0c121d] dark:text-white">{m.label}</p>
+                  <p className="text-sm font-semibold text-[#0c121d] dark:text-white truncate">{m.label}</p>
                 )}
                 {m.default && (
                   <span className="inline-flex items-center rounded-full bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900/20 dark:text-green-400">
@@ -115,21 +115,23 @@ function PaymentMethodsCardImpl({ methods, onAddMethod, onRemoveMethod, onSetDef
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 sm:justify-end">
               {!m.default && (
-                <Button size="sm" variant="outline" onClick={() => onSetDefault?.(i)}>{t('billing.setDefault')}</Button>
+                <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => onSetDefault?.(i)}>{t('billing.setDefault')}</Button>
               )}
               {editIndex === i ? (
                 <>
                   <Button
                     size="sm"
                     variant="outline"
+                    className="flex-1 sm:flex-none"
                     onClick={cancelEdit}
                   >
                     {t('common.cancel')}
                   </Button>
                   <Button
                     size="sm"
+                    className="flex-1 sm:flex-none"
                     onClick={() => {
                       onEditMethod?.(i, { type: editType, label: editLabel.trim() || m.label, default: m.default });
                       cancelEdit();
@@ -140,8 +142,8 @@ function PaymentMethodsCardImpl({ methods, onAddMethod, onRemoveMethod, onSetDef
                 </>
               ) : (
                 <>
-                  <Button size="sm" variant="outline" onClick={() => startEdit(i, m)}>{t('common.edit')}</Button>
-                  <Button size="sm" variant="outline" onClick={() => onRemoveMethod?.(i)}>{t('billing.remove')}</Button>
+                  <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => startEdit(i, m)}>{t('common.edit')}</Button>
+                  <Button size="sm" variant="outline" className="flex-1 sm:flex-none" onClick={() => onRemoveMethod?.(i)}>{t('billing.remove')}</Button>
                 </>
               )}
             </div>

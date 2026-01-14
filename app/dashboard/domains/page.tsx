@@ -60,7 +60,7 @@ export default function DomainsPage() {
           </div>
           <div className="flex items-center gap-2">
             <Button size="sm" onClick={() => setShowAdd((v) => !v)}>
-              <Icon name="add_circle" className="mr-2" />
+              <Icon name="add_circle" className="mr-2 " />
               {t('dashboard.addDomain')}
             </Button>
             <Button size="sm" variant="outline" onClick={() => setShowConnect((v) => !v)}>

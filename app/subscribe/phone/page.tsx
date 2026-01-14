@@ -1,15 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useLocale } from '@/components/providers/LocaleProvider';
 import { Icon } from '@/components/atoms/Icon';
+import { CountrySelector } from '@/components/molecules/CountrySelector';
+import { useCountries } from '@/components/hooks/useCountries';
 
 export default function PhonePage() {
   const router = useRouter();
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const { countries, loading } = useCountries();
   const [countryCode, setCountryCode] = useState('EG');
+
+  const selectedCountry = useMemo(
+    () => countries.find((c) => c.code === countryCode),
+    [countries, countryCode]
+  );
+
+  const phonePrefix = selectedCountry?.dialCode ?? '+20';
+  const countryName = selectedCountry ? (locale === 'ar' ? selectedCountry.nameAr : selectedCountry.nameEn) : '';
   const [firstName, setFirstName] = useState('Taha');
   const [lastName, setLastName] = useState('Capoo');
   const [phoneNumber, setPhoneNumber] = useState('00000000');
@@ -67,34 +77,19 @@ export default function PhonePage() {
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-[#0c121d] dark:text-gray-200 text-sm font-medium leading-normal ml-1">{t('billing.country')}</label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Image
-                      alt="Flag"
-                      className="rounded-[2px] object-cover border border-gray-200 dark:border-gray-600"
-                      height={16}
-                      src={`https://flagcdn.com/w24/${countryCode.toLowerCase()}.png`}
-                      width={24}
-                    />
-                  </div>
-                  <select
-                    className="form-select w-full h-12 pl-12 pr-8 rounded-lg border border-[#cdd7ea] dark:border-gray-600 bg-background-light dark:bg-gray-800 text-[#0c121d] dark:text-white text-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none cursor-pointer"
-                    value={countryCode}
-                    onChange={(e) => setCountryCode(e.target.value)}
-                    required
-                  >
-                    <option value="EG">Egypt</option>
-                    <option value="US">United States</option>
-                    <option value="GB">United Kingdom</option>
-                    <option value="DE">Germany</option>
-                    <option value="FR">France</option>
-                  </select>
-                </div>
+                <CountrySelector
+                  countries={countries}
+                  selectedCode={countryCode}
+                  onChange={setCountryCode}
+                  loading={loading}
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-[#0c121d] dark:text-gray-200 text-sm font-medium leading-normal ml-1">{t('billing.phone')}</label>
                 <div className="flex items-center gap-3">
-                  <span className="text-sm text-[#4563a1] dark:text-gray-400 whitespace-nowrap">+20 (Egypt)</span>
+                  <span className="text-sm text-[#4563a1] dark:text-gray-400 whitespace-nowrap">
+                    {phonePrefix} {countryName ? `(${countryName})` : ''}
+                  </span>
                   <input
                     className="form-input w-full h-12 px-4 rounded-lg border border-[#cdd7ea] dark:border-gray-600 bg-background-light dark:bg-gray-800 text-[#0c121d] dark:text-white text-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none"
                     type="tel"
